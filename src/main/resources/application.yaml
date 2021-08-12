@@ -12,9 +12,9 @@ spring:
               start-offers: latest
       bindings:
         userSearchRequest:
-          destination: palantir.userSearchRequest
+          destination: userSearchRequest
         userSearchResponse:
-          destination: palantir.userSearchResponse
+          destination: userSearchResponse
   kafka:
     bootstrap-servers: ${kafka_bootstrap_servers:localhost:9092}
     properties:

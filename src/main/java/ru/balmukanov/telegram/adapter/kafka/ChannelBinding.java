@@ -8,9 +8,9 @@ public interface ChannelBinding {
     String CHANNEL_USER_SEARCH_RQ = "userSearchRequest";
     String CHANNEL_USER_SEARCH_RS = "userSearchResponse";
 
-    @Input(CHANNEL_USER_SEARCH_RQ)
+    @Output(CHANNEL_USER_SEARCH_RQ)
     MessageChannel searchUserRequest();
 
-    @Output(CHANNEL_USER_SEARCH_RS)
+    @Input(CHANNEL_USER_SEARCH_RS)
     MessageChannel searchUserResponse();
 }

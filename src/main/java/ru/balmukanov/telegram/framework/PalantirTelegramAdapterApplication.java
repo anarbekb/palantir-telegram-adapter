@@ -9,9 +9,7 @@ import ru.balmukanov.telegram.adapter.kafka.palantir.Sender;
 public class PalantirTelegramAdapterApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(PalantirTelegramAdapterApplication.class, args);
-        Sender sender = context.getBean(Sender.class);
-        sender.send();
+        SpringApplication.run(PalantirTelegramAdapterApplication.class, args);
     }
 
 }
