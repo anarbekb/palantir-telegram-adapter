@@ -10,12 +10,12 @@ import ru.balmukanov.telegram.adapter.kafka.ChannelBinding;
 
 @Service
 @RequiredArgsConstructor
-public class Sender {
-    private static final Logger logger = LoggerFactory.getLogger(Sender.class);
+public class SearchUserRequestSender {
+    private static final Logger logger = LoggerFactory.getLogger(SearchUserRequestSender.class);
     private final ChannelBinding channelBinding;
 
-    public void send() {
-        var request = new SearchUserRequestDto("test");
+    public void send(String userName) {
+        var request = new SearchUserRequestDto(userName);
 
         boolean published = channelBinding.searchUserRequest().send(MessageBuilder.withPayload(request).build());
         if (!published) {
