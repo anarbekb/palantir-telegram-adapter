@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: palantir-telegram-adapter
+  cloud:
+    stream:
+      kafka:
+#        binder:
+#          brokers: 0.0.0.0:9092
+        bindings:
+          default:
+            consumer:
+              start-offers: latest
+      bindings:
+        userSearchRequest:
+          destination: palantir.userSearchRequest
+        userSearchResponse:
+          destination: palantir.userSearchResponse
+  kafka:
+    bootstrap-servers: ${kafka_bootstrap_servers:localhost:9092}
+    properties:
+      sasl:
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username=${kafka_username:'admin'} password=${kafka_password:'admin-secret'};
+        mechanism: PLAIN
+      security:
+        protocol: SASL_PLAINTEXT
+server:
+  port: 8081
