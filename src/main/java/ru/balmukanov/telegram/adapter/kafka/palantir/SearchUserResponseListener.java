@@ -12,6 +12,6 @@ public class SearchUserResponseListener {
 
     @StreamListener(ChannelBinding.CHANNEL_USER_SEARCH_RS)
     public void receiveUser(SearchUserResponseDto response) {
-        logger.info("Received request for user {}, find: {}", response.getQuery(), response.isFind());
+        logger.info("Received request for user {}, find: {}, results: {}", response.getQuery(), response.isFind(), response.getFinds());
     }
 }
