@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.listener.AbstractMessageListenerContainer;
 import org.springframework.kafka.listener.SeekToCurrentErrorHandler;
 import ru.balmukanov.telegram.adapter.kafka.ChannelBinding;
-import ru.balmukanov.telegram.adapter.kafka.palantir.AdapterMappingException;
+import ru.balmukanov.telegram.application.api.exception.AdapterMappingException;
 
 @Configuration
 @EnableBinding(ChannelBinding.class)

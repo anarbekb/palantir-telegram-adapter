@@ -1,25 +1,23 @@
 package ru.balmukanov.telegram.adapter.kafka.palantir;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.event.EventListener;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.MessageDeliveryException;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 import ru.balmukanov.telegram.adapter.kafka.ChannelBinding;
-import ru.balmukanov.telegram.application.api.event.SearchUserRequestEvent;
+import ru.balmukanov.telegram.application.api.PalantirService;
+import ru.balmukanov.telegram.domain.SearchUserRequest;
 
 @Service
 @RequiredArgsConstructor
-public class SearchUserRequestSender {
-    private static final Logger logger = LoggerFactory.getLogger(SearchUserRequestSender.class);
+@Slf4j
+public class PalantirServiceAdapter implements PalantirService {
     private final ChannelBinding channelBinding;
+    private final PalantirDtoMapper mapper;
 
-    @EventListener
-    public void send(SearchUserRequestEvent event) {
-        // todo use map here from SearchUserRequestEvent to SearchUserRequestDto
-        var request = new SearchUserRequestDto(event.getSource());
+    public void send(SearchUserRequest searchRequest) {
+        SearchUserRequestDto request = mapper.mapToDto(searchRequest);
 
         boolean published = channelBinding.searchUserRequest().send(MessageBuilder.withPayload(request).build());
         if (!published) {
@@ -29,6 +27,6 @@ public class SearchUserRequestSender {
             );
         }
 
-        logger.info("Send user search request: {}", request.getQuery());
+        log.info("Send user search request: {}", request.getQuery());
     }
 }

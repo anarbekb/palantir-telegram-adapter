@@ -1,0 +1,18 @@
+version: '2'
+
+volumes:
+  postgres_data:
+    driver: local
+
+services:
+  palantir-telegram-postgres:
+    container_name: telegram-postgres
+    image: postgres:10.1
+    ports:
+      - "5431:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=telegram
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"

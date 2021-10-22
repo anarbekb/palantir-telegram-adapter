@@ -1,6 +1,25 @@
 spring:
   application:
     name: palantir-telegram-adapter
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+    password: '@db.password@'
+    type: com.zaxxer.hikari.HikariDataSource
+    url: '@db.url@'
+    username: '@db.user@'
+    flyway:
+      enabled: true
+      password: '@db.password@'
+      url: '@db.url@'
+      user: '@db.user@'
+    jpa:
+      database: postgresql
+      properties:
+        hibernate:
+          id:
+            new_generator_mappings: false
   cloud:
     stream:
       kafka:

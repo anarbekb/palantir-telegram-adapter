@@ -1,4 +1,4 @@
-package ru.balmukanov.telegram.adapter.rest;
+package ru.balmukanov.telegram.adapter.rest.search;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
