@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SearchUserRequestDto {
-    private String query;
-
     private String requestId;
+    private String query;
 }
