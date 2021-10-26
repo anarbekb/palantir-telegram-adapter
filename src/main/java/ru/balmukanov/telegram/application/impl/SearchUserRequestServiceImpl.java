@@ -25,4 +25,10 @@ public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 		requestRepository.save(request);
 		palantirService.send(request);
 	}
+
+	@Override
+	public void completeUserSearch(String correlationId) {
+		SearchUserRequest request = requestRepository.getByCorrelationId(correlationId);
+		request.setComplete(true);
+	}
 }

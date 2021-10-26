@@ -13,4 +13,9 @@ public class SearchUserRequestJapRepositoryAdapter implements SearchUserRequestR
 	public SearchUserRequest save(SearchUserRequest request) {
 		return requestRepository.save(request);
 	}
+
+	@Override
+	public SearchUserRequest getByCorrelationId(String correlationId) {
+		return requestRepository.findByCorrelationId(correlationId);
+	}
 }

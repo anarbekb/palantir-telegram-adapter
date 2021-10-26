@@ -4,4 +4,6 @@ import ru.balmukanov.telegram.domain.SearchUserRequest;
 
 public interface SearchUserRequestService {
 	void startUserSearch(SearchUserRequest request);
+
+	void completeUserSearch(String correlationId);
 }
