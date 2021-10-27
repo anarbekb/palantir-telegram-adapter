@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.balmukanov.telegram.application.api.PalantirService;
+import ru.balmukanov.telegram.application.api.SearchResultRepository;
 import ru.balmukanov.telegram.application.api.SearchUserRequestRepository;
 import ru.balmukanov.telegram.application.api.SearchUserRequestService;
+import ru.balmukanov.telegram.domain.SearchResult;
 import ru.balmukanov.telegram.domain.SearchUserRequest;
 
 import java.util.UUID;
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 	private final PalantirService palantirService;
 	private final SearchUserRequestRepository requestRepository;
+	private final SearchResultRepository resultRepository;
 
 	@Override
 	@Transactional
@@ -27,8 +30,12 @@ public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 	}
 
 	@Override
-	public void completeUserSearch(String correlationId) {
+	@Transactional
+	public void completeUserSearch(String correlationId, SearchResult searchResult) {
 		SearchUserRequest request = requestRepository.getByCorrelationId(correlationId);
+
+		resultRepository.save(searchResult);
+		request.setSearchResult(searchResult);
 		request.setComplete(true);
 	}
 }

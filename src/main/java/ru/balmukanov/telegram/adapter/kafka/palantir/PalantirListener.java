@@ -12,11 +12,13 @@ import ru.balmukanov.telegram.application.api.SearchUserRequestService;
 @Slf4j
 public class PalantirListener {
     private final SearchUserRequestService searchUserRequestService;
+    private final PalantirDtoMapper mapper;
+
     @StreamListener(ChannelBinding.CHANNEL_USER_SEARCH_RS)
     public void receiveUser(SearchUserResponseDto response) {
         log.info("Received request for requestId {} user {}, find: {}, results: {}",
             response.getRequestId(), response.getQuery(), response.isFind(), response.getFinds());
 
-        searchUserRequestService.completeUserSearch(response.getRequestId());
+        searchUserRequestService.completeUserSearch(response.getRequestId(), mapper.mapToDomain(response));
     }
 }

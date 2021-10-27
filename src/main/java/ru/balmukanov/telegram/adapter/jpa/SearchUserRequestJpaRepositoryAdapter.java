@@ -7,7 +7,7 @@ import ru.balmukanov.telegram.domain.SearchUserRequest;
 
 @Repository
 @RequiredArgsConstructor
-public class SearchUserRequestJapRepositoryAdapter implements SearchUserRequestRepository {
+public class SearchUserRequestJpaRepositoryAdapter implements SearchUserRequestRepository {
 	private final SearchUserRequestJpaRepository requestRepository;
 	@Override
 	public SearchUserRequest save(SearchUserRequest request) {
