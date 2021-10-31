@@ -41,5 +41,3 @@ jobs:
             cd /var/palantir_telegram
             cp /var/palantir_telegram/target/app.jar /var/palantir_telegram/app.jar
             rm -rf /var/palantir_telegram/target
-#            systemctl stop telegram.service
-#            systemctl start telegram.service
