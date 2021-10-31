@@ -28,7 +28,6 @@ jobs:
         with:
           source: "./target/app.jar"
           target: "/var/palantir_telegram/"
-          strip_components: 1
 
       - name: Run application as service
         uses: appleboy/ssh-action@master
