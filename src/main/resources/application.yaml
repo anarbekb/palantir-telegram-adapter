@@ -45,3 +45,6 @@ spring:
         protocol: SASL_PLAINTEXT
 server:
   port: 8081
+bot:
+  name: ${BOT_NAME}
+  token: ${BOT_TOKEN}
