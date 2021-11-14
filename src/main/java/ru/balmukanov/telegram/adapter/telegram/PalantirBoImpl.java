@@ -19,6 +19,7 @@ public class PalantirBoImpl extends TelegramLongPollingCommandBot implements Pal
 	public PalantirBoImpl() {
 		register(new HelpCommand());
 		register(new StartCommand());
+		register(new SearchUserCommand());
 	}
 
 	@Override
