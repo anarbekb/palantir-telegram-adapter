@@ -19,7 +19,7 @@ public class StartCommand extends BotCommand {
 		SendMessage message = new SendMessage();
 		message.enableMarkdown(true);
 		message.setChatId(String.valueOf(chat.getId()));
-		message.setText("Go! Для помощь, нажмите /help");
+		message.setText("Go! Для помощи, нажмите /help");
 		absSender.execute(message);
 	}
 }
