@@ -2,30 +2,22 @@ package ru.balmukanov.telegram.adapter.telegram;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
+import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.balmukanov.telegram.application.api.PalantirBot;
 
 @Component
-public class PalantirBoImpl extends TelegramLongPollingBot implements PalantirBot {
+public class PalantirBoImpl extends TelegramLongPollingCommandBot implements PalantirBot {
 	@Value("${bot.name}")
 	private String botName;
 	@Value("${bot.token}")
 	private String token;
 
-	@Override
-	public void onUpdateReceived(Update update) {
-		try {
-			var message = new SendMessage();
-			message.setChatId(String.valueOf(update.getMessage().getChatId()));
-			message.setText("Hi");
-
-			execute(message);
-		} catch (TelegramApiException e) {
-			e.printStackTrace();
-		}
+	public PalantirBoImpl() {
+		register(new HelpCommand());
 	}
 
 	@Override
@@ -34,7 +26,23 @@ public class PalantirBoImpl extends TelegramLongPollingBot implements PalantirBo
 	}
 
 	@Override
+	public void processNonCommandUpdate(Update update) {
+		setAnswer(update.getChannelPost().getChatId(), "Hello");
+	}
+
+	@Override
 	public String getBotToken() {
 		return token;
+	}
+
+	private void setAnswer(Long chatId, String text) {
+		SendMessage answer = new SendMessage();
+		answer.setText(text);
+		answer.setChatId(chatId.toString());
+		try {
+			execute(answer);
+		} catch (TelegramApiException e) {
+			//логируем сбой Telegram Bot API, используя userName
+		}
 	}
 }
