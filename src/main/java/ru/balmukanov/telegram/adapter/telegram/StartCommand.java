@@ -10,7 +10,7 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 public class StartCommand extends BotCommand {
 
 	public StartCommand() {
-		super("start", "Привет, этот бот поможет найти человека по его username");
+		super("start", "Запуск бота");
 	}
 
 	@SneakyThrows
