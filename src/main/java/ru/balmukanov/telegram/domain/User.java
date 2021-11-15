@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "users")
 @Getter
@@ -17,4 +18,6 @@ public class User {
 	private String userName;
 	@Enumerated(EnumType.STRING)
 	private State state;
+	@OneToMany(mappedBy = "user")
+	private List<SearchUserRequest> requests;
 }

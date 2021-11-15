@@ -19,7 +19,8 @@ public class SearchUserRequest {
     private boolean isComplete;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private SearchResult searchResult;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public SearchUserRequest(User user, String query) {
