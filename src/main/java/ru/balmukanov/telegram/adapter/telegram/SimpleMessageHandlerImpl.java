@@ -1,6 +1,7 @@
 package ru.balmukanov.telegram.adapter.telegram;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import ru.balmukanov.telegram.adapter.telegram.input.UserNameInput;
@@ -15,6 +16,7 @@ import static ru.balmukanov.telegram.domain.State.ENTER_USERNAME;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class SimpleMessageHandlerImpl {
 	private final UserService userService;
 	private final List<UserInput> userInputImplementations;
@@ -24,6 +26,7 @@ public class SimpleMessageHandlerImpl {
 			User savedUser = userService.get(user.getTelegramId());
 			handleInput(message, savedUser);
 		} catch (UserNotFoundException e) {
+			log.info("Save user: " + user.getFirstName());
 			userService.save(user);
 		}
 	}
@@ -31,6 +34,7 @@ public class SimpleMessageHandlerImpl {
 	private void handleInput(Message message, User user) {
 		UserInput input = getInput(user);
 		if (input != null) {
+			log.info("Run input: " + input);
 			input.handle(user, message.getText());
 		}
 	}
