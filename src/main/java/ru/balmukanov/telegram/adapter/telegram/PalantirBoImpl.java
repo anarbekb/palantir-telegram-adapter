@@ -22,13 +22,12 @@ public class PalantirBoImpl extends TelegramLongPollingCommandBot implements Pal
 	private final SimpleMessageHandlerImpl messageHandler;
 	private final TelegramDtoMapper telegramDtoMapper;
 
-	public PalantirBoImpl(SimpleMessageHandlerImpl messageHandler, UserService userService) {
+	public PalantirBoImpl(SimpleMessageHandlerImpl messageHandler, StartSearchUserCommand startSearchUserCommand) {
 		this.telegramDtoMapper = new TelegramDtoMapper();
 		this.messageHandler = messageHandler;
-
 		register(new HelpCommand());
 		register(new StartCommand());
-		register(new StartSearchUserCommand(userService));
+		register(startSearchUserCommand);
 	}
 
 	@Override
