@@ -1,6 +1,7 @@
 package ru.balmukanov.telegram.application.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.balmukanov.telegram.application.api.UserRepository;
@@ -11,6 +12,7 @@ import ru.balmukanov.telegram.domain.User;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void setEnterUserName(User user) {
+		log.info("Set state enter_user_name for user {}", user.getFirstName());
 		user.setState(State.ENTER_USERNAME);
 	}
 
