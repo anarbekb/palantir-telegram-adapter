@@ -6,7 +6,10 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.balmukanov.telegram.adapter.telegram.command.StartCommand;
+import ru.balmukanov.telegram.adapter.telegram.command.StartSearchUserCommand;
 import ru.balmukanov.telegram.application.api.PalantirBot;
+import ru.balmukanov.telegram.application.api.UserService;
 import ru.balmukanov.telegram.domain.User;
 
 @Component
@@ -19,12 +22,13 @@ public class PalantirBoImpl extends TelegramLongPollingCommandBot implements Pal
 	private final SimpleMessageHandlerImpl messageHandler;
 	private final TelegramDtoMapper telegramDtoMapper;
 
-	public PalantirBoImpl(SimpleMessageHandlerImpl messageHandler) {
+	public PalantirBoImpl(SimpleMessageHandlerImpl messageHandler, UserService userService) {
 		this.telegramDtoMapper = new TelegramDtoMapper();
 		this.messageHandler = messageHandler;
+
 		register(new HelpCommand());
 		register(new StartCommand());
-		register(new SearchUserCommand());
+		register(new StartSearchUserCommand(userService));
 	}
 
 	@Override
@@ -36,7 +40,7 @@ public class PalantirBoImpl extends TelegramLongPollingCommandBot implements Pal
 	@Override
 	public void processNonCommandUpdate(Update update) {
 		User user = telegramDtoMapper.mapToDto(update.getMessage().getFrom());
-		messageHandler.handle(user);
+		messageHandler.handle(update.getMessage(), user);
 	}
 
 	@Override

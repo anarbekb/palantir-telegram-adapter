@@ -1,6 +1,7 @@
 package ru.balmukanov.telegram.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class SearchUserRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,4 +19,11 @@ public class SearchUserRequest {
     private boolean isComplete;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private SearchResult searchResult;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
+
+    public SearchUserRequest(User user, String query) {
+        this.user = user;
+        this.query = query;
+    }
 }

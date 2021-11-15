@@ -5,6 +5,7 @@ create table search_user_request
     correlation_id   varchar(255) not null,
     is_complete      boolean      not null,
     search_result_id bigint,
+    user_id          bigint,
     primary key (id)
 );
 

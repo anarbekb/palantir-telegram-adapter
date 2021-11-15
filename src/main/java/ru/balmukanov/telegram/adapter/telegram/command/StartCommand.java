@@ -1,4 +1,4 @@
-package ru.balmukanov.telegram.adapter.telegram;
+package ru.balmukanov.telegram.adapter.telegram.command;
 
 import lombok.SneakyThrows;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
