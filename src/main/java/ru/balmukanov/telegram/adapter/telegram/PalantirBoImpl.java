@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand.HelpCommand;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.balmukanov.telegram.application.api.PalantirBot;
+import ru.balmukanov.telegram.domain.User;
 
 @Component
 public class PalantirBoImpl extends TelegramLongPollingCommandBot implements PalantirBot {
@@ -16,7 +16,12 @@ public class PalantirBoImpl extends TelegramLongPollingCommandBot implements Pal
 	@Value("${bot.token}")
 	private String token;
 
-	public PalantirBoImpl() {
+	private final SimpleMessageHandlerImpl messageHandler;
+	private final TelegramDtoMapper telegramDtoMapper;
+
+	public PalantirBoImpl(SimpleMessageHandlerImpl messageHandler) {
+		this.telegramDtoMapper = new TelegramDtoMapper();
+		this.messageHandler = messageHandler;
 		register(new HelpCommand());
 		register(new StartCommand());
 		register(new SearchUserCommand());
@@ -30,11 +35,8 @@ public class PalantirBoImpl extends TelegramLongPollingCommandBot implements Pal
 	@SneakyThrows
 	@Override
 	public void processNonCommandUpdate(Update update) {
-		var message = new SendMessage();
-		message.setChatId(String.valueOf(update.getMessage().getChatId()));
-		message.setText("Hello");
-
-		execute(message);
+		User user = telegramDtoMapper.mapToDto(update.getMessage().getFrom());
+		messageHandler.handle(user);
 	}
 
 	@Override
