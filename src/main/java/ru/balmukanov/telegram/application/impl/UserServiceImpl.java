@@ -27,6 +27,9 @@ public class UserServiceImpl implements UserService {
 		user.setState(State.ENTER_USERNAME);
 	}
 
+
+	@Override
+	@Transactional
 	public void setWaitCommand(User user) {
 		user.setState(State.WAIT_COMMAND);
 	}
