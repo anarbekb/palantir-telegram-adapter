@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	public void setState(Long userId, State state) {
 		try {
 			User user = userRepository.getById(userId);
-			user.setState(State.ENTER_USERNAME);
+			user.setState(state);
 		} catch (UserNotFoundException e) {
 			log.error("Error set state: " + state);
 		}
