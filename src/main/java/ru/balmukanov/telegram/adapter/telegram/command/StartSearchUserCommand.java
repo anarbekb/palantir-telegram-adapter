@@ -11,6 +11,8 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.balmukanov.telegram.application.api.UserService;
 import ru.balmukanov.telegram.application.api.exception.UserNotFoundException;
 
+import static ru.balmukanov.telegram.domain.State.ENTER_USERNAME;
+
 @Component
 public class StartSearchUserCommand extends BotCommand {
 	private final UserService userService;
@@ -24,7 +26,7 @@ public class StartSearchUserCommand extends BotCommand {
 	public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
 		try {
 			ru.balmukanov.telegram.domain.User domainUser = userService.get(user.getId());
-			userService.setEnterUserName(domainUser);
+			userService.setState(domainUser.getId(), ENTER_USERNAME);
 			sendInputMessage(absSender, chat.getId());
 		} catch (UserNotFoundException e) {
 			sendError(absSender, chat.getId());

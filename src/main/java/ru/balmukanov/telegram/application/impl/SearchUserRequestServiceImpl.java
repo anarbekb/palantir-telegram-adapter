@@ -10,6 +10,8 @@ import ru.balmukanov.telegram.domain.SearchUserRequest;
 
 import java.util.UUID;
 
+import static ru.balmukanov.telegram.domain.State.WAIT_COMMAND;
+
 @Service
 @RequiredArgsConstructor
 public class SearchUserRequestServiceImpl implements SearchUserRequestService {
@@ -45,6 +47,6 @@ public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 
 		searchResponse.send(request.getUser(), searchResult);
 
-		userService.setWaitCommand(request.getUser());
+		userService.setState(request.getUser().getId(), WAIT_COMMAND);
 	}
 }

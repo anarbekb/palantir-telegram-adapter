@@ -5,5 +5,6 @@ import ru.balmukanov.telegram.domain.User;
 
 public interface UserRepository {
 	User getByTelegramId(Long id) throws UserNotFoundException;
+	User getById(Long id) throws UserNotFoundException;
 	User save(User user);
 }

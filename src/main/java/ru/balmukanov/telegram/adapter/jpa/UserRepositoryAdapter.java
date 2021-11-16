@@ -17,6 +17,11 @@ public class UserRepositoryAdapter implements UserRepository {
 	}
 
 	@Override
+	public User getById(Long id) throws UserNotFoundException {
+		return userJpaRepository.findById(id).orElseThrow(UserNotFoundException::new);
+	}
+
+	@Override
 	public User save(User user) {
 		return userJpaRepository.save(user);
 	}
