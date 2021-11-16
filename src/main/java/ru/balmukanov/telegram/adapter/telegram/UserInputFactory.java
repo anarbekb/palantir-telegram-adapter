@@ -8,6 +8,7 @@ import ru.balmukanov.telegram.domain.State;
 import ru.balmukanov.telegram.domain.User;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserInputFactory {
 	private final List<UserInput> implementations;
-	private Map<State, UserInput> implementationsMap;
+	private final Map<State, UserInput> implementationsMap = new HashMap<>();
 
 	@PostConstruct
 	public void init() {

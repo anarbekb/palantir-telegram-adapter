@@ -1,6 +1,7 @@
 package ru.balmukanov.telegram.application.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.balmukanov.telegram.application.api.*;
@@ -15,8 +16,13 @@ public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 	private final PalantirService palantirService;
 	private final SearchUserRequestRepository requestRepository;
 	private final SearchResultRepository resultRepository;
-	private final SearchResponse searchResponse;
 	private final UserService userService;
+	private SearchResponse searchResponse;
+
+	@Autowired
+	public void setSearchResponse(SearchResponse searchResponse) {
+		this.searchResponse = searchResponse;
+	}
 
 	@Override
 	@Transactional
