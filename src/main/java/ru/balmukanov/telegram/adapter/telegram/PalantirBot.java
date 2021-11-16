@@ -8,23 +8,24 @@ import org.telegram.telegrambots.extensions.bots.commandbot.commands.helpCommand
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.balmukanov.telegram.adapter.telegram.command.StartCommand;
 import ru.balmukanov.telegram.adapter.telegram.command.StartSearchUserCommand;
-import ru.balmukanov.telegram.application.api.PalantirBot;
-import ru.balmukanov.telegram.application.api.UserService;
 import ru.balmukanov.telegram.domain.User;
 
 @Component
-public class PalantirBoImpl extends TelegramLongPollingCommandBot implements PalantirBot {
+public class PalantirBot extends TelegramLongPollingCommandBot {
 	@Value("${bot.name}")
 	private String botName;
 	@Value("${bot.token}")
 	private String token;
 
-	private final SimpleMessageHandlerImpl messageHandler;
+	private final TextMessageHandler messageHandler;
+	private final CheckUserHandler checkUserHandler;
 	private final TelegramDtoMapper telegramDtoMapper;
 
-	public PalantirBoImpl(SimpleMessageHandlerImpl messageHandler, StartSearchUserCommand startSearchUserCommand) {
+	public PalantirBot(TextMessageHandler messageHandler, StartSearchUserCommand startSearchUserCommand, CheckUserHandler checkUserHandler) {
 		this.telegramDtoMapper = new TelegramDtoMapper();
 		this.messageHandler = messageHandler;
+		this.checkUserHandler = checkUserHandler;
+
 		register(new HelpCommand());
 		register(new StartCommand());
 		register(startSearchUserCommand);
@@ -39,7 +40,8 @@ public class PalantirBoImpl extends TelegramLongPollingCommandBot implements Pal
 	@Override
 	public void processNonCommandUpdate(Update update) {
 		User user = telegramDtoMapper.mapToDto(update.getMessage().getFrom());
-		messageHandler.handle(update.getMessage(), user);
+		User savedUser = checkUserHandler.handle(user);
+		messageHandler.handle(update.getMessage(), savedUser);
 	}
 
 	@Override

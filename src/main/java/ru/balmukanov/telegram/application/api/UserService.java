@@ -6,5 +6,5 @@ import ru.balmukanov.telegram.domain.User;
 public interface UserService {
 	User get(Long telegramId) throws UserNotFoundException;
 	void setEnterUserName(User user);
-	void save(User user);
+	User save(User user);
 }
