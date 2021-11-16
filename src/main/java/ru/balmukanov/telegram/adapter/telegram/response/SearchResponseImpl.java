@@ -22,8 +22,8 @@ public class SearchResponseImpl implements SearchResponse {
 
 	public void send(User user, SearchResult result) {
 		try {
-			userService.setState(user.getId(), WAIT_COMMAND);
 			palantirBot.execute(getMessage(String.valueOf(user.getTelegramId()), getMessageText(result)));
+			userService.setState(user.getId(), WAIT_COMMAND);
 		} catch (TelegramApiException e) {
 			log.error("Fail send response: " + e.getMessage());
 		}
