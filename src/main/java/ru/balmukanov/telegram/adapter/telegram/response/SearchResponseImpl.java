@@ -35,7 +35,7 @@ public class SearchResponseImpl implements SearchResponse {
 
 	private String getMessageText(SearchResult result) {
 		if (result.isFind()) {
-			StringBuilder builder = new StringBuilder("Нашлось " + result.getFinds().size() + " рез.:");
+			StringBuilder builder = new StringBuilder("Нашлось " + result.getFinds().size() + " рез.:\n");
 			result.getFinds().forEach((host, link) -> builder.append(host).append(" - ").append(link));
 			return builder.toString();
 		} else {
