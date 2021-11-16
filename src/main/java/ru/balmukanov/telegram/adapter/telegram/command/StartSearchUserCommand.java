@@ -25,7 +25,7 @@ public class StartSearchUserCommand extends BotCommand {
 	@Override
 	public void execute(AbsSender absSender, User user, Chat chat, String[] arguments) {
 		try {
-			ru.balmukanov.telegram.domain.User domainUser = userService.get(user.getId());
+			ru.balmukanov.telegram.domain.User domainUser = userService.getByTelegramId(user.getId());
 			userService.setState(domainUser.getId(), ENTER_USERNAME);
 			sendInputMessage(absSender, chat.getId());
 		} catch (UserNotFoundException e) {

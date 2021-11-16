@@ -5,7 +5,7 @@ import ru.balmukanov.telegram.domain.State;
 import ru.balmukanov.telegram.domain.User;
 
 public interface UserService {
-	User get(Long telegramId) throws UserNotFoundException;
+	User getByTelegramId(Long telegramId) throws UserNotFoundException;
 	void setState(Long userId, State state);
 	void setStateByTelegramId(Long telegramId, State state);
 	User save(User user);

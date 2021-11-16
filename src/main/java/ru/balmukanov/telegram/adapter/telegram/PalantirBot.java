@@ -19,11 +19,9 @@ public class PalantirBot extends TelegramLongPollingCommandBot {
 
 	private final TextMessageHandler messageHandler;
 	private final CheckUserHandler checkUserHandler;
-	private final TelegramDtoMapper telegramDtoMapper;
 
 	public PalantirBot(TextMessageHandler messageHandler, StartSearchUserCommand startSearchUserCommand,
 	                   CheckUserHandler checkUserHandler, StartCommand startCommand, HelpCommand helpCommand) {
-		this.telegramDtoMapper = new TelegramDtoMapper();
 		this.messageHandler = messageHandler;
 		this.checkUserHandler = checkUserHandler;
 
@@ -40,8 +38,7 @@ public class PalantirBot extends TelegramLongPollingCommandBot {
 	@SneakyThrows
 	@Override
 	public void processNonCommandUpdate(Update update) {
-		User user = telegramDtoMapper.mapToDto(update.getMessage().getFrom());
-		User savedUser = checkUserHandler.handle(user);
+		User savedUser = checkUserHandler.handle(update.getMessage().getFrom());
 		messageHandler.handle(update.getMessage(), savedUser);
 	}
 

@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 	private final UserRepository userRepository;
 
 	@Override
-	public User get(Long telegramId) throws UserNotFoundException {
+	public User getByTelegramId(Long telegramId) throws UserNotFoundException {
 		return userRepository.getByTelegramId(telegramId);
 	}
 
