@@ -24,10 +24,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void setEnterUserName(User user) {
-		log.info("Set state enter_user_name for user {}", user.getFirstName());
 		user.setState(State.ENTER_USERNAME);
-
-		userRepository.save(user);
 	}
 
 	public void setWaitCommand(User user) {
