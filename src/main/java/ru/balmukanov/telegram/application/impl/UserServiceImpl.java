@@ -24,14 +24,24 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void setEnterUserName(User user) {
-		user.setState(State.ENTER_USERNAME);
+		try {
+			user = userRepository.getByTelegramId(user.getTelegramId());
+			user.setState(State.ENTER_USERNAME);
+		} catch (UserNotFoundException e) {
+			log.error("Error set state: " + State.ENTER_USERNAME);
+		}
 	}
 
 
 	@Override
 	@Transactional
 	public void setWaitCommand(User user) {
-		user.setState(State.WAIT_COMMAND);
+		try {
+			user = userRepository.getByTelegramId(user.getTelegramId());
+			user.setState(State.WAIT_COMMAND);
+		} catch (UserNotFoundException e) {
+			log.error("Error set state: " + State.WAIT_COMMAND);
+		}
 	}
 
 	@Override
