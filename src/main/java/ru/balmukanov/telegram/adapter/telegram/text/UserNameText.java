@@ -1,6 +1,6 @@
 package ru.balmukanov.telegram.adapter.telegram.text;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.balmukanov.telegram.application.api.SearchUserRequestService;
 import ru.balmukanov.telegram.application.api.UserInput;
@@ -9,13 +9,9 @@ import ru.balmukanov.telegram.domain.State;
 import ru.balmukanov.telegram.domain.User;
 
 @Component
+@RequiredArgsConstructor
 public class UserNameText implements UserInput {
-	private SearchUserRequestService searchUserRequestService;
-
-	@Autowired
-	public void setSearchUserRequestService(SearchUserRequestService searchUserRequestService) {
-		this.searchUserRequestService = searchUserRequestService;
-	}
+	private final SearchUserRequestService searchUserRequestService;
 
 	@Override
 	public void handle(User user, String userInput) {

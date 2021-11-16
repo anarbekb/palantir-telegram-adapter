@@ -10,15 +10,12 @@ import ru.balmukanov.telegram.domain.SearchUserRequest;
 
 import java.util.UUID;
 
-import static ru.balmukanov.telegram.domain.State.WAIT_COMMAND;
-
 @Service
 @RequiredArgsConstructor
 public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 	private final PalantirService palantirService;
 	private final SearchUserRequestRepository requestRepository;
 	private final SearchResultRepository resultRepository;
-	private final UserService userService;
 	private SearchResponse searchResponse;
 
 	@Autowired
@@ -46,7 +43,5 @@ public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 		request.setComplete(true);
 
 		searchResponse.send(request.getUser(), searchResult);
-
-		userService.setState(request.getUser().getId(), WAIT_COMMAND);
 	}
 }
