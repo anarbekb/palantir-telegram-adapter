@@ -30,6 +30,10 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(user);
 	}
 
+	public void setWaitCommand(User user) {
+		user.setState(State.WAIT_COMMAND);
+	}
+
 	@Override
 	@Transactional
 	public User save(User user) {

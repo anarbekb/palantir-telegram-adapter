@@ -3,10 +3,7 @@ package ru.balmukanov.telegram.application.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.balmukanov.telegram.application.api.PalantirService;
-import ru.balmukanov.telegram.application.api.SearchResultRepository;
-import ru.balmukanov.telegram.application.api.SearchUserRequestRepository;
-import ru.balmukanov.telegram.application.api.SearchUserRequestService;
+import ru.balmukanov.telegram.application.api.*;
 import ru.balmukanov.telegram.domain.SearchResult;
 import ru.balmukanov.telegram.domain.SearchUserRequest;
 
@@ -18,6 +15,8 @@ public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 	private final PalantirService palantirService;
 	private final SearchUserRequestRepository requestRepository;
 	private final SearchResultRepository resultRepository;
+	private final SearchResponse searchResponse;
+	private final UserService userService;
 
 	@Override
 	@Transactional
@@ -37,5 +36,9 @@ public class SearchUserRequestServiceImpl implements SearchUserRequestService {
 		resultRepository.save(searchResult);
 		request.setSearchResult(searchResult);
 		request.setComplete(true);
+
+		searchResponse.send(request.getUser(), searchResult);
+
+		userService.setWaitCommand(request.getUser());
 	}
 }
