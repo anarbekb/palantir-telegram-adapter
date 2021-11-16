@@ -21,13 +21,14 @@ public class PalantirBot extends TelegramLongPollingCommandBot {
 	private final CheckUserHandler checkUserHandler;
 	private final TelegramDtoMapper telegramDtoMapper;
 
-	public PalantirBot(TextMessageHandler messageHandler, StartSearchUserCommand startSearchUserCommand, CheckUserHandler checkUserHandler) {
+	public PalantirBot(TextMessageHandler messageHandler, StartSearchUserCommand startSearchUserCommand,
+	                   CheckUserHandler checkUserHandler, StartCommand startCommand) {
 		this.telegramDtoMapper = new TelegramDtoMapper();
 		this.messageHandler = messageHandler;
 		this.checkUserHandler = checkUserHandler;
 
 		register(new HelpCommand());
-		register(new StartCommand());
+		register(startCommand);
 		register(startSearchUserCommand);
 	}
 

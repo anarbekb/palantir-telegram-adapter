@@ -34,6 +34,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
+	public void setStateByTelegramId(Long telegramId, State state) {
+		try {
+			User user = userRepository.getByTelegramId(telegramId);
+			user.setState(state);
+		} catch (UserNotFoundException e) {
+			log.error("Error set state: " + state);
+		}
+	}
+
+	@Override
+	@Transactional
 	public User save(User user) {
 		return userRepository.save(user);
 	}
