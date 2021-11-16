@@ -8,7 +8,6 @@ import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import ru.balmukanov.telegram.application.api.UserService;
-import ru.balmukanov.telegram.domain.State;
 
 import static ru.balmukanov.telegram.domain.State.WAIT_COMMAND;
 
