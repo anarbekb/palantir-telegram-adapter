@@ -16,7 +16,7 @@ import ru.balmukanov.telegram.application.api.WishNotificationService;
 public class WishNotificationServiceImpl implements WishNotificationService {
 	private final PalantirBot palantirBot;
 
-	@Value("bot.notification.wish.target")
+	@Value("${bot.notification.wish.target}")
 	private Long telegramId;
 
 	@Override
