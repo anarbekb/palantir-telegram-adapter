@@ -48,3 +48,6 @@ server:
 bot:
   name: ${BOT_NAME}
   token: ${BOT_TOKEN}
+  notification:
+    wish:
+      target: ${TELEGRAM_WISH_TARGET_ID}
