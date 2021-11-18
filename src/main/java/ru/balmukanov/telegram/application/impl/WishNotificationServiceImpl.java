@@ -20,7 +20,7 @@ public class WishNotificationServiceImpl implements WishNotificationService {
 	private Long telegramId;
 
 	@Override
-	@Scheduled(cron = "0 10 * * *")
+	@Scheduled(cron = "0 0 10 * * ?")
 	public void goodMorning() {
 		try {
 			palantirBot.execute(sendMessage(telegramId, "Доброе утро, кошечка ♥️"));
@@ -31,7 +31,7 @@ public class WishNotificationServiceImpl implements WishNotificationService {
 	}
 
 	@Override
-	@Scheduled(cron = "0 00 * * *")
+	@Scheduled(cron = "0 0 00 * * ?")
 	public void goodNight() {
 		try {
 			palantirBot.execute(sendMessage(telegramId, "Доброй ночи, картошечка ♥️"));
